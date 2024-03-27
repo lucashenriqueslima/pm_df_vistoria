@@ -4,7 +4,11 @@ import 'package:get/get.dart';
 class AppPageController extends ChangeNotifier {
   final RxInt currentPage;
 
-  AppPageController({required this.currentPage});
+  AppPageController({required this.currentPage}) {
+    currentPage.listen((index) {
+      changePage(index);
+    });
+  }
 
   final PageController pageController = PageController();
 

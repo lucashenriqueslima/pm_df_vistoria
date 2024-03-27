@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pm_df_vistoria/routes/app_pages.dart';
 import 'package:pm_df_vistoria/src/presentation/extensions/widget_extension.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/login/login_controller.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
@@ -96,7 +97,9 @@ class LoginPage extends GetView<LoginController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  AppPrimaryButtonWidget(onPressed: () {}, label: 'Entrar'),
+                  AppPrimaryButtonWidget(
+                      onPressed: () => Get.offAndToNamed(Routes.dashboard),
+                      label: 'Entrar'),
                 ],
               ).paddingSymmetric(horizontal: 20),
             ],
