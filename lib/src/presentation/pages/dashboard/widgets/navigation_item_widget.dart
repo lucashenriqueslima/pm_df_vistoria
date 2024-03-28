@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pm_df_vistoria/src/presentation/extensions/widget_extension.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_text_styles.dart';
 

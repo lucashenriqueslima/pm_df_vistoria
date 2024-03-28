@@ -10,7 +10,7 @@ class AppTextStyles {
     Color? color,
   }) =>
       TextStyle(
-        color: color ?? AppColors.primary,
+        color: color ?? Colors.black,
         fontSize: fontSize ?? 16,
         fontWeight: fontWeight ?? FontWeight.normal,
         fontFamily: 'MyriadPro',

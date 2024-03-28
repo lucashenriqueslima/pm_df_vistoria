@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AppPageController extends ChangeNotifier {
-  final RxInt currentPage;
+  final RxInt currentPage = 0.obs;
 
-  AppPageController({required this.currentPage}) {
+  AppPageController({int? initialCurrentPageValue}) {
+    currentPage.value = initialCurrentPageValue ?? 0;
     currentPage.listen((index) {
       changePage(index);
     });

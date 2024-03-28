@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/dashboard_controller.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/dashboard/views/home/home_view.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/widgets/navigation_item_widget.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_images.dart';
@@ -50,7 +51,7 @@ class DashboardPage extends GetView<DashboardController> {
             child: Row(
               children: [
                 NavigationItemWidget(
-                    selectedIndex: controller.selectedIndex,
+                    selectedIndex: controller.pageControllerUtil.currentPage,
                     index: 0,
                     icon: const Icon(
                       Icons.home,
@@ -59,7 +60,7 @@ class DashboardPage extends GetView<DashboardController> {
                     ),
                     title: 'Home'),
                 NavigationItemWidget(
-                    selectedIndex: controller.selectedIndex,
+                    selectedIndex: controller.pageControllerUtil.currentPage,
                     index: 1,
                     icon: const Icon(
                       Icons.directions_car,
@@ -68,7 +69,7 @@ class DashboardPage extends GetView<DashboardController> {
                     ),
                     title: 'Vistoria'),
                 NavigationItemWidget(
-                    selectedIndex: controller.selectedIndex,
+                    selectedIndex: controller.pageControllerUtil.currentPage,
                     index: 2,
                     icon: const Icon(
                       Icons.list_sharp,
@@ -77,7 +78,7 @@ class DashboardPage extends GetView<DashboardController> {
                     ),
                     title: 'Minhas Vistorias'),
                 NavigationItemWidget(
-                    selectedIndex: controller.selectedIndex,
+                    selectedIndex: controller.pageControllerUtil.currentPage,
                     index: 3,
                     icon: const Icon(
                       Icons.person_outline,
@@ -92,9 +93,7 @@ class DashboardPage extends GetView<DashboardController> {
             controller: controller.pageControllerUtil.pageController,
             physics: const NeverScrollableScrollPhysics(),
             children: const [
-              Center(
-                child: Text('Home'),
-              ),
+              HomeView(),
               Center(
                 child: Text('Vistoria'),
               ),
