@@ -63,7 +63,7 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
             fontSize: 14.2,
             color: AppColors.darkGrey,
           ),
-        ).paddingLeft(10),
+        ).paddingLeft(5),
         const SizedBox(
           height: 6,
         ),

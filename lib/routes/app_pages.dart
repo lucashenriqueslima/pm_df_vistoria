@@ -3,6 +3,8 @@ import 'package:pm_df_vistoria/src/presentation/pages/dashboard/dashboard_bindin
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/login/login_binding.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/login/login_page.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/survey/survey_binding.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/survey/survey_page.dart';
 part 'app_routes.dart';
 
 class AppPages {
@@ -18,6 +20,11 @@ class AppPages {
       name: _Paths.dashboard,
       page: () => const DashboardPage(),
       binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.survey,
+      page: () => const SurveyPage(),
+      binding: SurveyBinding(),
     ),
   ];
 }

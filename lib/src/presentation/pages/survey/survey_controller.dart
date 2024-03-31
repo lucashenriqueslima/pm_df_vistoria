@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_page_controller.dart';
 
-class DashboardController extends GetxController {
+class SurveyController extends GetxController {
   late final AppPageController pageControllerUtil;
 
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
-import 'package:pm_df_vistoria/src/presentation/utils/app_ui_constants.dart';
 
 class AppTheme {
   static ThemeData lightTheme = ThemeData(

@@ -29,6 +29,16 @@ class AppPageController extends ChangeNotifier {
     });
   }
 
+  void previousPage() {
+    if (currentPage.value > 0) {
+      currentPage.value--;
+
+      return;
+    }
+
+    Get.back();
+  }
+
   @override
   void dispose() {
     pageController.dispose();
