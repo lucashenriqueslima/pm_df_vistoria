@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_page_controller.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_text_styles.dart';
 
 class AppRowTitleWidget extends StatelessWidget {
   final String title;
-  final AppPageController pageControllerUtil;
+  final AppPageController? pageControllerUtil;
 
   const AppRowTitleWidget({
     required this.title,
-    required this.pageControllerUtil,
+    this.pageControllerUtil,
     super.key,
   });
 
@@ -20,13 +21,21 @@ class AppRowTitleWidget extends StatelessWidget {
         Expanded(
           child: Align(
             alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios_outlined,
-                size: 25,
+            child: InkWell(
+              onTap: () {
+                if (pageControllerUtil != null) {
+                  pageControllerUtil!.previousPage();
+
+                  return;
+                }
+
+                Get.back();
+              },
+              child: const Icon(
+                Icons.arrow_back_ios,
                 color: AppColors.primary,
+                size: 30,
               ),
-              onPressed: () => pageControllerUtil.previousPage(),
             ),
           ),
         ),

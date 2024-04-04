@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pm_df_vistoria/routes/app_pages.dart';
+import 'package:pm_df_vistoria/src/domain/survey/enums/survey_type.dart';
 import 'package:pm_df_vistoria/src/presentation/constants/padding_constants.dart';
 import 'package:pm_df_vistoria/src/presentation/extensions/widget_extension.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/survey/views/list_cars/list_cars_controller.dart';
@@ -65,8 +67,11 @@ class ListCarsView extends StatelessWidget {
                             itemBuilder: (BuildContext context) =>
                                 <PopupMenuEntry<ListTileTitleAlignment>>[
                               PopupMenuItem<ListTileTitleAlignment>(
-                                onTap: () => controller.surveyController
-                                    .pageControllerUtil.currentPage.value = 2,
+                                onTap: () =>
+                                    Get.toNamed(Routes.formSurvey, arguments: {
+                                  'surveyType': SurveyType.initial,
+                                  'isReadOnly': false,
+                                }),
                                 height: 33,
                                 value: ListTileTitleAlignment.threeLine,
                                 child: const Text(
