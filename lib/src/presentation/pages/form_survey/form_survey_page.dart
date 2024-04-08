@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:pm_df_vistoria/src/presentation/constants/padding_constants.dart';
 import 'package:pm_df_vistoria/src/presentation/extensions/widget_extension.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/form_survey/form_survey_controller.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/form_survey/widgets/custom_slider_widget.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/form_survey/widgets/text_button_checkbox.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
+import 'package:pm_df_vistoria/src/presentation/utils/app_decorations.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_text_styles.dart';
+import 'package:pm_df_vistoria/src/presentation/widgets/app_header_widget.dart';
+import 'package:pm_df_vistoria/src/presentation/widgets/app_primary_button_widget.dart';
+import 'package:pm_df_vistoria/src/presentation/widgets/app_primary_text_form_field_widget.dart';
 import 'package:pm_df_vistoria/src/presentation/widgets/app_row_title_widget.dart';
 
 class FormSurveyPage extends GetView<FormSurveyController> {
@@ -15,7 +19,7 @@ class FormSurveyPage extends GetView<FormSurveyController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('FormSurveyPage')),
+      appBar: const AppHeaderWidget(),
       body: Column(
         children: [
           AppRowTitleWidget(
@@ -127,12 +131,12 @@ class FormSurveyPage extends GetView<FormSurveyController> {
             ],
           ),
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           TabBar(
             controller: controller.tabController,
             indicatorSize: TabBarIndicatorSize.tab,
-            indicatorWeight: 3.0,
+            indicatorWeight: 4.0,
             tabs: [
               Tab(
                 child: Text(
@@ -160,53 +164,485 @@ class FormSurveyPage extends GetView<FormSurveyController> {
                         child: Text(
                           'Quantidade de combustível',
                           style: AppTextStyles.bold().copyWith(
-                            fontSize: 17,
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
                           ),
                         ),
+                      ),
+                      Obx(
+                        () => CustomSliderWidget(
+                          minValue: 0,
+                          maxValue: 100,
+                          value: controller.survey.value.ammountFuel,
+                          majorTick: 5,
+                          minorTick: 1,
+                          labelValuePrecision: 0,
+                          tickValuePrecision: 0,
+                          onChanged: (value) => controller.survey.update((val) {
+                            val!.ammountFuel = value;
+                          }),
+                          linearStep: false,
+                        ),
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 4,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppPrimaryTextFormFieldWidget(
+                              labelText: 'Último odômetro',
+                              labelTextStyle: AppTextStyles.bold().copyWith(
+                                fontSize: 16.6,
+                                color: AppColors.darkGrey,
+                              ),
+                              verticalContentPadding: 0,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: AppPrimaryTextFormFieldWidget(
+                              labelText: 'Odômetro atual',
+                              labelTextStyle: AppTextStyles.bold().copyWith(
+                                fontSize: 16.6,
+                                color: AppColors.darkGrey,
+                              ),
+                              verticalContentPadding: 0,
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      SliderTheme(
-                        data: SliderTheme.of(context).copyWith(
-                          activeTrackColor: AppColors.active,
-                          trackHeight: 3.0,
-                        ),
-                        child: Obx(
-                          () => Slider(
-                            value: controller.survey.value.ammountFuel,
-                            min: 0,
-                            max: 100,
-                            divisions: 10,
-                            activeColor: AppColors.active,
-                            label:
-                                '${controller.survey.value.ammountFuel.round().toString()}%',
-                            onChanged: (value) =>
-                                controller.survey.update((val) {
-                              val!.ammountFuel = value;
-                            }),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Lataria',
+                          style: AppTextStyles.bold().copyWith(
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
                           ),
                         ),
                       ),
                       Row(
                         children: [
-                          TextButtonCheckboxWidget(
-                              label: 'aaasdasd',
-                              value: controller.survey.value.roof.isBroken.obs),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Arranhado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Danificado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Quebrado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Faltando',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Amassado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeitos',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppPrimaryTextFormFieldWidget(
+                        labelText: 'Observação',
+                        labelTextStyle: AppTextStyles.normal().copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                        verticalContentPadding: 0,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Teto',
+                          style: AppTextStyles.bold().copyWith(
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Arranhado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Danificado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Quebrado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Faltando',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Amassado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeitos',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppPrimaryTextFormFieldWidget(
+                        labelText: 'Observação',
+                        labelTextStyle: AppTextStyles.normal().copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                        verticalContentPadding: 0,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Capô',
+                          style: AppTextStyles.bold().copyWith(
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Arranhado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Danificado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Quebrado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Faltando',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Amassado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeitos',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppPrimaryTextFormFieldWidget(
+                        labelText: 'Observação',
+                        labelTextStyle: AppTextStyles.normal().copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                        verticalContentPadding: 0,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Pneus',
+                          style: AppTextStyles.bold().copyWith(
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Careca',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Furado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeitos',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppPrimaryTextFormFieldWidget(
+                        labelText: 'Observação',
+                        labelTextStyle: AppTextStyles.normal().copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                        verticalContentPadding: 0,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Elétrica',
+                          style: AppTextStyles.bold().copyWith(
+                            fontSize: 16.6,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Luzes (setas)',
+                          style: AppTextStyles.normal().copyWith(
+                            fontSize: 15.5,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Com defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Roubado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Hotlight',
+                          style: AppTextStyles.normal().copyWith(
+                            fontSize: 15.5,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Com defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Roubado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Rádio',
+                          style: AppTextStyles.normal().copyWith(
+                            fontSize: 15.5,
+                            color: AppColors.darkGrey,
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Com defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Sem defeito',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                          Obx(
+                            () => TextButtonCheckboxWidget(
+                              label: 'Roubado',
+                              value: controller.survey.value.roof.isBroken.obs,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      AppPrimaryTextFormFieldWidget(
+                        labelText: 'Observação',
+                        labelTextStyle: AppTextStyles.normal().copyWith(
+                          color: AppColors.darkGrey,
+                        ),
+                        verticalContentPadding: 0,
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      AppPrimaryButtonWidget(
+                        onPressed: () {},
+                        label: 'Finalizar vistoria',
                       ),
                     ],
                   ).paddingTop(20),
                 ),
-                Card(
-                  child: ListTile(
-                    leading: const Icon(Icons.location_on),
-                    title:
-                        const Text('Latitude: 48.09342\nLongitude: 11.23403'),
-                    trailing: IconButton(
-                        icon: const Icon(Icons.my_location), onPressed: () {}),
-                  ),
-                ),
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 120,
+                            decoration: AppDecorations.defaultBoxDecoration(),
+                            child: const Icon(
+                              Icons.camera_alt,
+                              color: AppColors.grey,
+                              size: 60,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 20.0),
+                        Expanded(
+                          child: Container(
+                            height: 120,
+                            decoration: AppDecorations.defaultBoxDecoration(),
+                            child: const Icon(
+                              Icons.image,
+                              color: AppColors.grey,
+                              size: 60,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ).paddingTop(20),
               ],
             ),
           ),

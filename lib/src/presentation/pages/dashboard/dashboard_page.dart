@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/dashboard_controller.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/views/home/home_view.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/dashboard/views/my_surveys/list_my_surveys_view.dart';
+import 'package:pm_df_vistoria/src/presentation/pages/dashboard/views/profile/profile_view.dart';
 import 'package:pm_df_vistoria/src/presentation/pages/dashboard/widgets/navigation_item_widget.dart';
 import 'package:pm_df_vistoria/src/presentation/utils/app_colors.dart';
 import 'package:pm_df_vistoria/src/presentation/widgets/app_header_widget.dart';
@@ -75,12 +77,8 @@ class DashboardPage extends GetView<DashboardController> {
             Center(
               child: Text('Vistoria'),
             ),
-            Center(
-              child: Text('Minhas Vistorias'),
-            ),
-            Center(
-              child: Text('Perfil'),
-            ),
+            ListMySurveysView(),
+            ProfileView(),
           ],
         ),
       ),

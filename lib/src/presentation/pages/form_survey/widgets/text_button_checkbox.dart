@@ -45,10 +45,15 @@ class TextButtonCheckboxWidget extends StatelessWidget {
               ),
             ).paddingLeft(7),
             const SizedBox(width: 10),
-            Text(
-              'SDSA',
-              style: AppTextStyles.normal().copyWith(
-                fontSize: 14,
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label,
+                  style: AppTextStyles.normal().copyWith(
+                    fontSize: 15,
+                  ),
+                ),
               ),
             ),
           ],

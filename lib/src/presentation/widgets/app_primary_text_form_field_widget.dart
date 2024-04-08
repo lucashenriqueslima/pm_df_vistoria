@@ -11,6 +11,7 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final TextCapitalization? textCapitalization;
   final String labelText;
+  final TextStyle? labelTextStyle;
   final String? hintText;
   final String? errorText;
   final String? Function(String?)? validator;
@@ -18,8 +19,8 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
   final TextInputAction? textInputAction;
   final TextAlign? textAlign;
   final TextStyle? textStyle;
+  final double? verticalContentPadding;
   final void Function(String?)? onSaved;
-
   final void Function(String)? onChanged;
   final TextInputType? keyboardType;
   final bool? obscureText;
@@ -34,6 +35,7 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
     this.nextFocusNode,
     this.inputFormatters,
     this.textCapitalization,
+    this.labelTextStyle,
     required this.labelText,
     this.hintText,
     this.errorText,
@@ -41,6 +43,7 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
     this.onFieldSubmitted,
     this.textInputAction,
     this.textStyle,
+    this.verticalContentPadding,
     this.textAlign,
     this.onChanged,
     this.onSaved,
@@ -59,10 +62,11 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
       children: [
         Text(
           labelText,
-          style: AppTextStyles.normal().copyWith(
-            fontSize: 14.2,
-            color: AppColors.darkGrey,
-          ),
+          style: labelTextStyle ??
+              AppTextStyles.normal().copyWith(
+                fontSize: 14.2,
+                color: AppColors.darkGrey,
+              ),
         ).paddingLeft(5),
         const SizedBox(
           height: 6,
@@ -86,9 +90,10 @@ class AppPrimaryTextFormFieldWidget extends StatelessWidget {
           style: AppTextStyles.normal().copyWith(
             color: AppColors.darkGrey,
           ),
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 12.9, horizontal: 8),
-            border: OutlineInputBorder(
+          decoration: InputDecoration(
+            contentPadding: EdgeInsets.symmetric(
+                vertical: verticalContentPadding ?? 12.9, horizontal: 8),
+            border: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
               borderSide: BorderSide(
                 color: Color(0XFF979797),
