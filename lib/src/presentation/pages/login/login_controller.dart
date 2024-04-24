@@ -29,32 +29,44 @@ class LoginController extends GetxController {
   void onInit() {
     controllerWebView
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..clearCache()
-      ..clearLocalStorage()
       ..setNavigationDelegate(
         NavigationDelegate(
           onProgress: (int progress) {
             webViewIsLoading.value = progress != 100;
           },
           onPageStarted: (String url) {},
-          onUrlChange: (_) async {
-            var rawResult =
-                await controllerWebView.runJavaScriptReturningResult(script);
-            final Map<String, dynamic> result =
-                jsonDecode(rawResult.toString());
+          onUrlChange: (UrlChange change) async {
+            if (change.url!.contains('https://dsv-vistoria.rs.pm.df.gov.br')) {
+              var rawResult =
+                  await controllerWebView.runJavaScriptReturningResult(script);
+              final Map<String, dynamic> result =
+                  jsonDecode(rawResult.toString());
 
-            if (result.containsKey('access_token')) {
-              userAuthService.sigIn(result['access_token'] as String);
-              Get.offAllNamed(Routes.dashboard);
+              if (result.containsKey('access_token')) {
+                userAuthService.sigIn(result['access_token']);
+                Get.offAllNamed(Routes.dashboard);
+              }
             }
           },
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
+          onPageFinished: (String url) async {
+            print('asdad');
+            // if (url.contains('https://dsv-vistoria.rs.pm.df.gov.br')) {
+            //   var rawResult =
+            //       await controllerWebView.runJavaScriptReturningResult(script);
+            //   final Map<String, dynamic> result =
+            //       jsonDecode(rawResult.toString());
+
+            //   if (result.containsKey('access_token')) {
+            //     userAuthService.sigIn(result['access_token'] as String);
+            //     Get.offAllNamed(Routes.dashboard);
+            //   }
+
+            //   Get.offAllNamed(Routes.dashboard);
+            // }
           },
+          onWebResourceError: (WebResourceError error) {},
         ),
       )
-      ..setOnConsoleMessage((message) {})
       ..loadRequest(
         Uri.parse('https://dsv-vistoria.rs.pm.df.gov.br'),
       );
