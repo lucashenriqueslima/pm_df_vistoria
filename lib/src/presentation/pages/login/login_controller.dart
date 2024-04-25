@@ -34,7 +34,6 @@ class LoginController extends GetxController {
           onProgress: (int progress) {
             webViewIsLoading.value = progress != 100;
           },
-          onPageStarted: (String url) {},
           onUrlChange: (UrlChange change) async {
             if (change.url!.contains('https://dsv-vistoria.rs.pm.df.gov.br')) {
               var rawResult =
@@ -49,20 +48,17 @@ class LoginController extends GetxController {
             }
           },
           onPageFinished: (String url) async {
-            print('asdad');
-            // if (url.contains('https://dsv-vistoria.rs.pm.df.gov.br')) {
-            //   var rawResult =
-            //       await controllerWebView.runJavaScriptReturningResult(script);
-            //   final Map<String, dynamic> result =
-            //       jsonDecode(rawResult.toString());
+            if (url.contains('https://dsv-vistoria.rs.pm.df.gov.br')) {
+              var rawResult =
+                  await controllerWebView.runJavaScriptReturningResult(script);
+              final Map<String, dynamic> result =
+                  jsonDecode(rawResult.toString());
 
-            //   if (result.containsKey('access_token')) {
-            //     userAuthService.sigIn(result['access_token'] as String);
-            //     Get.offAllNamed(Routes.dashboard);
-            //   }
-
-            //   Get.offAllNamed(Routes.dashboard);
-            // }
+              if (result.containsKey('access_token')) {
+                userAuthService.sigIn(result['access_token'] as String);
+                Get.offAllNamed(Routes.dashboard);
+              }
+            }
           },
           onWebResourceError: (WebResourceError error) {},
         ),
