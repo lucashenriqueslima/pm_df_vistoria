@@ -43,7 +43,7 @@ class LoginController extends GetxController {
 
               if (result.containsKey('access_token')) {
                 userAuthService.sigIn(result['access_token']);
-                Get.offAllNamed(Routes.dashboard);
+                Get.offAllNamed(Routes.dashboard);/7 
               }
             }
           },
