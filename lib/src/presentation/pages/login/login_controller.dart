@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:pm_df_vistoria/routes/app_pages.dart';
@@ -43,7 +44,7 @@ class LoginController extends GetxController {
 
               if (result.containsKey('access_token')) {
                 userAuthService.sigIn(result['access_token']);
-                Get.offAllNamed(Routes.dashboard);/7 
+                Get.offAllNamed(Routes.dashboard);
               }
             }
           },
@@ -65,8 +66,13 @@ class LoginController extends GetxController {
       )
       ..loadRequest(
         Uri.parse('https://dsv-vistoria.rs.pm.df.gov.br'),
+        method: LoadRequestMethod.post,
+        body: Uint8List.fromList(utf8.encode('realm=pmdf&client_id=vistoria-app&redirect_uri=https://dsv-vistoria.rs.pm.df.gov.br/app-login')),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Other-Header': 'header value',
+        },
       );
-    super.onInit();
     super.onInit();
   }
 }
